@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <style>
+        body {
+            font-family: Arial;
+        }
+    </style>
+</head>
+<body>
+    <ul id="list">
+        <li></li>
+        <li></li>
+    </ul>
+    <input type="button" name="remove" value="Removing the fourth value"  onclick="javascript:remove()" />
+    <script>
+         d3.select("#list").selectAll("li")
+            .data([10, 20, 30, 40, 50])
+            .text(function(d)
+            {
+                return "is pre-existing element and its value is " + d;
+            })
+            .enter()
+            .append("li")
+            .text(function(d)
+            {
+                return "dynamically created element and its  value is " + d;
+            });
+         function remove() {
+            d3.selectAll("li")
+            .data([10, 20, 30,50])
+            .exit()
+            .remove()
+         }
+    </script>
+</body>
+</html>

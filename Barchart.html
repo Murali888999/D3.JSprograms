@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <script  src="https://d3js.org/d3.v4.min.js"></script>
+    <style>
+        svg rect {
+            fill: deeppink;
+        }
+        svg text {
+            fill: black;
+            font: 12px ;
+            text-anchor: end;
+        }
+    </style>
+</head>
+<body>
+    <script>
+         var data = [10, 15, 12, 5];
+         var width = 300
+            scaleFactor = 20,   //pixel value that is visible on the screen.
+            barHeight = 30;    //height of the horizontal bars
+
+         var graph = d3.select("body")
+            .append("svg")
+            .attr("width", width) //width of svg
+            .attr("height", barHeight * data.length); //height =barheight * no.of data values = 30*4=120
+         var bar = graph.selectAll("g")  //each bar corresponds with an elements.so that we created group elements.
+            .data(data)
+            .enter()
+            .append("g")
+            .attr("transform", function(d, i) {  
+               return "translate(0," + i * barHeight + ")"; // index*barheight
+            });
+         bar.append("rect").attr("width", function(d) { //width = data value * scale factor
+            return d * scaleFactor;
+         })
+
+         .attr("height", barHeight - 1); //height = barheight - margin
+         bar.append("text")
+            .attr("x", function(d) { return (d*scaleFactor); })
+            .attr("y", barHeight / 4)
+            .attr("dy", ".40em") //emphemeral unit: current font size
+            .text(function(d) { return d; });
+    </script>
+</body>
+</html>
